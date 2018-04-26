@@ -120,68 +120,70 @@
       </el-pagination>
     </div>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form class="small-space" :model="temp" label-position="left" label-width="70px"
-               style='width: 400px; margin-left:50px;'>
 
-        <el-form-item label="单位名称">
-          <el-select class="filter-item" v-model="temp.status" placeholder="请选择">
+    <!--对话框带验证表单-->
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form class="small-space" :inline="true" :model="temp" :rules="rules" ref="temp" label-position="left" label-width="80px"
+               style='width: 800px; margin-left:50px;'>
+
+        <el-form-item label="单位名称" prop="status">
+          <el-select class="filter-item" v-model="temp.status" placeholder="请选择" prop="status"  style='width:185px;'>
             <el-option v-for="item in  statusOptions" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="登录名">
+        <el-form-item label="登录名" prop="title">
           <el-input v-model="temp.title" placeholder="请输入内容" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="密码">
+        <el-form-item label="密码" prop="password">
           <el-input v-model="temp.password" placeholder="请输入内容" type="password" clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="确认密码">
+        <el-form-item label="确认密码" prop="passwordSur" >
           <el-input v-model="temp.passwordSur" placeholder="请输入内容" type="password"  clearable></el-input>
         </el-form-item>
 
-        <el-form-item label="用户名称">
+        <el-form-item label="用户名称" prop="name" >
           <el-input v-model="temp.name" placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item label="性别">
-          <el-select class="filter-item" v-model="temp.status" placeholder="请选择">
+        <el-form-item label="性别" prop="status">
+          <el-select class="filter-item" v-model="temp.status" placeholder="请选择" style='width:185px;'>
             <el-option v-for="item in  statusOptions" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="Email">
+        <el-form-item label="Email" prop="email">
           <el-input v-model="temp.email" placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item label="电话">
+        <el-form-item label="电话" prop="phone">
           <el-input v-model="temp.phone" placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item label="座机">
+        <el-form-item label="座机" prop="tel">
           <el-input v-model="temp.tel" placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item label="QQ">
+        <el-form-item label="QQ" prop="qq">
           <el-input v-model="temp.qq" placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item label="地址">
+        <el-form-item label="地址" prop="address">
           <el-input v-model="temp.address" placeholder="请输入内容"></el-input>
         </el-form-item>
 
-        <el-form-item label="状态">
-          <el-select class="filter-item" v-model="temp.status" placeholder="请选择">
+        <el-form-item label="状态" prop="status">
+          <el-select class="filter-item" v-model="temp.status" placeholder="请选择" style='width:185px;'>
             <el-option v-for="item in  statusOptions" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="备注">
+        <el-form-item label="备注" prop="remark">
           <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="temp.remark">
           </el-input>
         </el-form-item>
@@ -280,7 +282,52 @@
           timestamp: 0,
           title: '',
           type: '',
-          status: ''
+          status: '',
+          password: '',
+          passwordSur: '',
+          name: '',
+          email: '',
+          phone: '',
+          tel: '',
+          qq: '',
+          address: ''
+        },
+        rules: {
+          title: [
+            { required: true, message: '请输入活动名称', trigger: 'blur' },
+            { min: 3, max: 20, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+            { pattern: /[A-Za-z0-9_\-\u4e00-\u9fa5]+/, message: '用户名不能包含特殊字符' }
+          ],
+          remark: [
+            { required: true, message: '请选择活动区域', trigger: 'change' }
+          ],
+          status: [
+            { required: true, message: '请选择日期', trigger: 'blur' }
+          ],
+          password: [
+            { required: true, message: '请选择时间', trigger: 'blur' }
+          ],
+          passwordSur: [
+            { required: true, message: '请选择时间', trigger: 'blur' }
+          ],
+          type: [
+            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+          ],
+          name: [
+            { required: true, message: '请选择活动资源', trigger: 'change' }
+          ],
+          email: [
+            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          ],
+          phone: [
+            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          ],
+          tel: [
+            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          ],
+          qq: [
+            { required: true, message: '请填写活动形式', trigger: 'blur' }
+          ]
         },
         importanceOptions: [1, 2, 3],
         calendarTypeOptions,
