@@ -111,7 +111,7 @@
       </el-table-column>
 
     </el-table>
-
+    <!--表格分页栏-->
     <div v-show="!listLoading" class="pagination-container">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
                      :current-page.sync="listQuery.page"
