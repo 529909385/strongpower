@@ -21,7 +21,7 @@
     </div>
 
     <el-table ref="multipleTable" :key='tableKey' :data="list" v-loading="listLoading" element-loading-text="给我一点时间"
-              border fit highlight-current-row style="width: 100%" @selection-change="selsChange">
+              border fit highlight-current-row style="width: 100%" @selection-change="selsChange" height="620" :row-class-name="tableRowClassName">
       <el-table-column
         type="selection"
         width="55">
@@ -224,6 +224,18 @@
     width: 50%;
   }
 
+  /*格中行间变样式*/
+  .el-table .warning-row {
+    background: oldlace;
+  }
+
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
+
+  .el-table .info-row {
+    background: ghostwhite;
+  }
 </style>
 <script>
   import { fetchList, fetchPv } from '@/api/article'
@@ -312,6 +324,12 @@
           this.total = response.data.total
           this.listLoading = false
         })
+      },
+      tableRowClassName({ row, rowIndex }) {
+        if (rowIndex % 2 === 0) {
+          return 'info-row'
+        }
+        return ''
       },
       handle(key, row) {
         debugger
