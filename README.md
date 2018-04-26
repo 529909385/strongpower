@@ -1,9 +1,11 @@
 # strongpower
-电力系统前端dev
+电力系统前端说明
 
 ## 功能
 - xxxxxxxx
 - xxxxxxxx
+- xxxxxxxx
+
 
 # 目录结构
 ```shell
