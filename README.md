@@ -2,39 +2,8 @@
 电力系统前端dev
 
 ## 功能
-- 登录/注销
-- 权限验证
-- 侧边栏
-- 面包屑
-- 富文本编辑器
-- Markdown编辑器
-- JSON编辑器
-- 列表拖拽
-- plitPane
-- Dropzone
-- Sticky
-- CountTo
-- echarts图表
-- 401，404错误页面
-- 错误日志
-- 导出excel
-- zip
-- 前端可视化excel
-- table example
-- 动态table example
-- 拖拽table example
-- 内联编辑table example
-- form example
-- 多环境发布
-- dashboard
-- 二次登录
-- 动态侧边栏（支持多级路由）
-- mock数据
-- cache tabs example
-- screenfull
-- markdown2html
-- views-tab
-- clipboard
+- xxxxxxxx
+- xxxxxxxx
 
 # 目录结构
 ```shell
