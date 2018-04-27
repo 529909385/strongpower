@@ -20,9 +20,9 @@
       AppMain
     },
     mounted() {
-      axios.get('http://localhost:8089/PROJECT/home')
+      axios.get('http://localhost:8089/api/user/page')
         .then((response) => {
-          console.log(response)
+          /* console.log(response)*/
         })
         .catch((error) => {
           console.log(error)

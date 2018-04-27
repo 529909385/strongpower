@@ -119,7 +119,8 @@
   }
 </style>
 <script>
-import { fetchList, fetchPv } from '@/api/article'
+// import { fetchList, fetchPv } from '@/api/article'
+import { fetchList } from '@/api/object'
 import axios from 'axios'
 import waves from '@/directive/waves/index.js' // 水波纹指令
 import { parseTime } from '@/utils'
@@ -200,15 +201,16 @@ export default {
     getList() {
       this.listLoading = true
       // debugger
-      fetchList(this.listQuery).then(response => {
+      fetchList().then(response => {
+        console.log(response)
        /* this.list = response.data.items
         this.total = response.data.total*/
         /* this.listLoading = false*/
       })
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-      axios.get('http://localhost:8089/PROJECT/role/list')
+     /* axios.get('http://localhost:8089/api/user/list')
         .then((response) => {
-          // console.log(response)
+          console.log(response)
           this.list = response.data
           this.listLoading = false
           this.total = this.list.length
@@ -216,7 +218,7 @@ export default {
         })
         .catch((error) => {
           console.log(error)
-        })
+        })*/
     },
     handleFilter() {
       this.listQuery.page = 1
@@ -332,10 +334,10 @@ export default {
       }
     },
     handleFetchPv(pv) {
-      fetchPv(pv).then(response => {
+     /* fetchPv(pv).then(response => {
         this.pvData = response.data.pvData
         this.dialogPvVisible = true
-      })
+      })*/
     },
     handleDownload() {
       require.ensure([], () => {

@@ -98,7 +98,8 @@
 </template>
 
 <script>
-import { fetchList, fetchPv } from '@/api/article'
+import { fetchPv } from '@/api/article'
+import { ywdwPage } from '@/api/ywdw'
 import waves from '@/directive/waves/index.js' // 水波纹指令
 import { parseTime } from '@/utils'
 
@@ -176,7 +177,14 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+     /* fetchList(this.listQuery).then(response => {
+      /!*  this.list = response.data.items
+        this.total = response.data.total
+        this.listLoading = false*!/
+      })*/
+      debugger
+      ywdwPage(this.listQuery).then(response => {
+        debugger
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
