@@ -25,7 +25,7 @@ export default {
     }
   },
   mounted() {
-    debugger
+    // debugger
     const iconsMap = icons.state.iconsMap.map((i) => {
       return i.default.id.split('-')[1]
     })

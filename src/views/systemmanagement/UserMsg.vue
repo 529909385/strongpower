@@ -209,7 +209,7 @@
 
   </div>
 </template>
-<style>
+<style scoped>
   @import "../../assets/icons-alibaba/iconfont.css";
 
   .demo-table-expand {
@@ -380,7 +380,7 @@
         return ''
       },
       handle(key, row) {
-        debugger
+        // debugger
         switch (key) {
           case 'create':
             this.handleCreate()

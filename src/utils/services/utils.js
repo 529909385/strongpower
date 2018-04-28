@@ -36,7 +36,7 @@ export const keyMirror = (obj) => {
  * @return  {Array}
  */
 export const arrayToTree = (array, id = 'id', pid = 'pid', children = 'children') => {
-  debugger
+  // debugger
   const data = array.map(item => ({ ...item }))
   const result = []
   const hash = {}

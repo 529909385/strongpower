@@ -4,10 +4,15 @@ import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' */
 
 // 创建axios实例
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+/* axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'*/
+// axios.defaults.headers.post['Content-Type'] = 'multipart/form-data'
+// Content-Disposition: form-data; name="id"
+// Content-Type: text/plain; charset=UTF-8
+// Content-Transfer-Encoding: 8bit
 const service = axios.create({
   baseURL: process.env.TEMP_API, // api的base_url
-  timeout: 5000// 请求超时时间
+  timeout: 5000, // 请求超时时间
+  headers: { 'Content-Type': 'application/json' }
 })
 
 // request拦截器

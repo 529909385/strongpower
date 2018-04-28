@@ -19,16 +19,16 @@
         width="55">
       </el-table-column>
 
-      <el-table-column  prop="title" label="单位机构(市/县)">
+      <el-table-column  prop="tSysSx" label="单位机构(市/县)">
       </el-table-column>
 
-      <el-table-column  align="center" prop="title" label="单位名称">
+      <el-table-column  align="center" prop="tSysDwmz" label="单位名称">
       </el-table-column>
 
-      <el-table-column  v-if='showAuditor' prop="sort" align="center" label="排序">
+      <el-table-column  v-if='showAuditor' prop="tSysPx" align="center" label="排序">
       </el-table-column>
 
-      <el-table-column class-name="status-col" prop="status" label="状态">
+      <el-table-column class-name="status-col" prop="tSysZt" label="状态">
       </el-table-column>
 
       <el-table-column align="center" label="操作" width="150">
@@ -51,29 +51,29 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px" style='width: 400px; margin-left:50px;'>
         <el-form-item label="单位机构(市/县)">
-          <el-select class="filter-item" v-model="temp.type" placeholder="请选择">
-            <el-option v-for="item in  calendarTypeOptions" :key="item.key" :label="item.display_name" :value="item.key">
+          <el-select class="filter-item" v-model="temp.tSysSx" placeholder="请选择">
+            <el-option v-for="item in  calendarTypeOptions" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="单位名称">
-          <el-input v-model="temp.title" placeholder="请输入内容"></el-input>
+          <el-input v-model="temp.tSysDwmz" placeholder="请输入内容"></el-input>
         </el-form-item>
 
         <el-form-item label="排序">
-          <el-input v-model="temp.title" placeholder="请输入内容"></el-input>
+          <el-input v-model="temp.tSysPx" placeholder="请输入内容"></el-input>
         </el-form-item>
 
         <el-form-item label="状态">
-          <el-select class="filter-item" v-model="temp.status" placeholder="请选择">
+          <el-select class="filter-item" v-model="temp.tSysZt" placeholder="请选择">
             <el-option v-for="item in  statusOptions" :key="item" :label="item" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="备注">
-          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="temp.remark">
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="temp.tSysBz">
           </el-input>
         </el-form-item>
       </el-form>
@@ -99,14 +99,14 @@
 
 <script>
 import { fetchPv } from '@/api/article'
-import { ywdwPage } from '@/api/ywdw'
+// import axios from 'axios' // , ywdwUpdate
+import { ywdwPage, ywdwUpdate, ywdwAdd } from '@/api/ywdw'
 import waves from '@/directive/waves/index.js' // 水波纹指令
 import { parseTime } from '@/utils'
+// import qs from 'qs'
+// import $ from 'jquery'
 
-const calendarTypeOptions = [
-  { key: 'sj', display_name: '市级' },
-  { key: 'xj', display_name: '县级' }
-]
+const calendarTypeOptions = ['市级', '县级']
 
 // arr to obj
 const calendarTypeKeyValue = calendarTypeOptions.reduce((acc, cur) => {
@@ -130,16 +130,15 @@ export default {
         importance: undefined,
         title: undefined,
         type: undefined,
-        sort: '+id'
+        sort: undefined
       },
       temp: {
-        id: undefined,
-        importance: 0,
-        remark: '',
-        timestamp: 0,
-        title: '',
-        type: '',
-        status: ''
+        tSysId: undefined,
+        tSysBz: '',
+        tSysDwmz: '',
+        tSysPx: '',
+        tSysSx: '',
+        tSysZt: ''
       },
       importanceOptions: [1, 2, 3],
       calendarTypeOptions,
@@ -182,10 +181,10 @@ export default {
         this.total = response.data.total
         this.listLoading = false*!/
       })*/
-      debugger
+      // console.log(response.data.records)
       ywdwPage(this.listQuery).then(response => {
-        debugger
-        this.list = response.data.items
+        // debugger
+        this.list = response.data.records
         this.total = response.data.total
         this.listLoading = false
       })
@@ -262,11 +261,14 @@ export default {
       })
     },
     create() {
-      this.temp.id = parseInt(Math.random() * 100) + 1024
-      this.temp.timestamp = +new Date()
-      this.temp.author = '原创作者'
       this.list.unshift(this.temp)
+      // debugger
       this.dialogFormVisible = false
+      ywdwAdd(this.temp).then(response => {
+        // debugger
+        console.log(response)
+        this.listLoading = false
+      })
       this.$notify({
         title: '成功',
         message: '创建成功',
@@ -275,14 +277,67 @@ export default {
       })
     },
     update() {
-      this.temp.timestamp = +this.temp.timestamp
-      for (const v of this.list) {
+    /*  let data = {
+        tSysId: 1,
+        tSysBz: 1,
+        tSysDwmz: 1,
+        tSysPx: 1,
+        tSysSx: 1,
+        tSysZt: 1
+      }*/
+      // data = { id: 'q' }
+      // debugger
+      var params1 = new URLSearchParams()
+      for (const attr in this.temp) {
+        // console.log(attr)
+        // console.log(this.temp[attr])
+        params1.append(attr, this.temp[attr])
+      }
+      ywdwUpdate(this.temp).then(response => {
+        console.log(response)
+        this.listLoading = false
+      })
+      // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+     // const postData = qs.stringify(this.temp)
+      // params.append('name', 'hello jdmc你好')
+      // params.append('id', '2')
+      // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+      // axios.defaults.headers.post['Content-Type'] = 'application/json'
+   /*   const param = JSON.stringify(this.temp)
+      console.log(param)
+      axios.post('api/ywdw/update')
+        .then(function(response) {
+          console.log(1)
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })*/
+      /* $.ajax({
+        type: 'post',
+        url: 'http://localhost:8089/api/ywdw/update',
+        data: data,
+        dataType: 'json',
+        success: function(data) {
+        }
+      })*/
+      /* debugger
+      axios.post('http://localhost:8089/api/ywdw/update', this.temp)
+        .then(function(response) {
+          console.log(1)
+          console.log(response)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })*/
+      // this.temp.timestamp = +this.temp.timestamp
+     /* for (const v of this.list) {
         if (v.id === this.temp.id) {
           const index = this.list.indexOf(v)
           this.list.splice(index, 1, this.temp)
           break
         }
-      }
+      }*/
       this.dialogFormVisible = false
       this.$notify({
         title: '成功',
@@ -293,13 +348,12 @@ export default {
     },
     resetTemp() {
       this.temp = {
-        id: undefined,
-        importance: 0,
-        remark: '',
-        timestamp: 0,
-        title: '',
-        status: '',
-        type: ''
+        tSysId: undefined,
+        tSysBz: '',
+        tSysDwmz: '',
+        tSysPx: '',
+        tSysSx: '',
+        tSysZt: ''
       }
     },
     handleFetchPv(pv) {

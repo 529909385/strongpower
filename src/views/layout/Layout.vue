@@ -20,7 +20,7 @@
       AppMain
     },
     mounted() {
-      axios.get('http://localhost:8089/api/user/page')
+      axios.get('/api/user/page')
         .then((response) => {
           /* console.log(response)*/
         })

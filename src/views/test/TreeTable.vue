@@ -104,7 +104,7 @@
     },
     methods: {
       rowClick(data, index, event) {
-        debugger
+        // debugger
         console.log('当前行数据:' + data)
         console.log('点击行号:' + index)
         console.log('点击事件:' + event)

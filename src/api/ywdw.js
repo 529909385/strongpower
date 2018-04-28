@@ -7,9 +7,25 @@ export function ywdwList() {
   })
 }
 
-export function ywdwPage() {
+export function ywdwPage(query) {
   return fetchObject({
     url: '/ywdw/page',
-    method: 'get'
+    method: 'post',
+    params: query
+  })
+}
+
+export function ywdwUpdate(datas) {
+  return fetchObject({
+    url: '/ywdw/update',
+    method: 'post',
+    data: datas
+  })
+}
+export function ywdwAdd(datas) {
+  return fetchObject({
+    url: '/ywdw/insert',
+    method: 'post',
+    data: datas
   })
 }
