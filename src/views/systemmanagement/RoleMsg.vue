@@ -119,8 +119,8 @@
   }
 </style>
 <script>
-// import { fetchList, fetchPv } from '@/api/article'
-import { fetchList } from '@/api/object'
+import { fetchList } from '@/api/article'
+// import { fetchList } from '@/api/object'
 // import axios from 'axios'
 import waves from '@/directive/waves/index.js' // 水波纹指令
 import { parseTime } from '@/utils'
@@ -200,25 +200,11 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      // debugger
       fetchList(this.listQuery).then(response => {
-        // console.log(response)
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
       })
-      // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-     /* axios.get('http://localhost:8089/api/user/list')
-        .then((response) => {
-          console.log(response)
-          this.list = response.data
-          this.listLoading = false
-          this.total = this.list.length
-          console.log(this.list)
-        })
-        .catch((error) => {
-          console.log(error)
-        })*/
     },
     handleFilter() {
       this.listQuery.page = 1

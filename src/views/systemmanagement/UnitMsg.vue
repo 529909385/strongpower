@@ -31,7 +31,7 @@
       <el-table-column class-name="status-col" prop="tSysZt" label="状态">
       </el-table-column>
 
-      <el-table-column align="center" label="操作" width="150">
+      <el-table-column align="center" label="操作" width="180">
         <template slot-scope="scope">
           <el-button v-if="true" size="small" type="success" @click="handleUpdate(scope.row)">编辑
           </el-button>
@@ -99,12 +99,9 @@
 
 <script>
 import { fetchPv } from '@/api/article'
-// import axios from 'axios' // , ywdwUpdate
 import { ywdwPage, ywdwUpdate, ywdwAdd } from '@/api/ywdw'
 import waves from '@/directive/waves/index.js' // 水波纹指令
 import { parseTime } from '@/utils'
-// import qs from 'qs'
-// import $ from 'jquery'
 
 const calendarTypeOptions = ['市级', '县级']
 
@@ -176,14 +173,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-     /* fetchList(this.listQuery).then(response => {
-      /!*  this.list = response.data.items
-        this.total = response.data.total
-        this.listLoading = false*!/
-      })*/
-      // console.log(response.data.records)
       ywdwPage(this.listQuery).then(response => {
-        // debugger
         this.list = response.data.records
         this.total = response.data.total
         this.listLoading = false
@@ -262,10 +252,8 @@ export default {
     },
     create() {
       this.list.unshift(this.temp)
-      // debugger
       this.dialogFormVisible = false
       ywdwAdd(this.temp).then(response => {
-        // debugger
         console.log(response)
         this.listLoading = false
       })
@@ -277,67 +265,10 @@ export default {
       })
     },
     update() {
-    /*  let data = {
-        tSysId: 1,
-        tSysBz: 1,
-        tSysDwmz: 1,
-        tSysPx: 1,
-        tSysSx: 1,
-        tSysZt: 1
-      }*/
-      // data = { id: 'q' }
-      // debugger
-      var params1 = new URLSearchParams()
-      for (const attr in this.temp) {
-        // console.log(attr)
-        // console.log(this.temp[attr])
-        params1.append(attr, this.temp[attr])
-      }
       ywdwUpdate(this.temp).then(response => {
         console.log(response)
         this.listLoading = false
       })
-      // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-     // const postData = qs.stringify(this.temp)
-      // params.append('name', 'hello jdmc你好')
-      // params.append('id', '2')
-      // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-      // axios.defaults.headers.post['Content-Type'] = 'application/json'
-   /*   const param = JSON.stringify(this.temp)
-      console.log(param)
-      axios.post('api/ywdw/update')
-        .then(function(response) {
-          console.log(1)
-          console.log(response)
-        })
-        .catch(function(error) {
-          console.log(error)
-        })*/
-      /* $.ajax({
-        type: 'post',
-        url: 'http://localhost:8089/api/ywdw/update',
-        data: data,
-        dataType: 'json',
-        success: function(data) {
-        }
-      })*/
-      /* debugger
-      axios.post('http://localhost:8089/api/ywdw/update', this.temp)
-        .then(function(response) {
-          console.log(1)
-          console.log(response)
-        })
-        .catch(function(error) {
-          console.log(error)
-        })*/
-      // this.temp.timestamp = +this.temp.timestamp
-     /* for (const v of this.list) {
-        if (v.id === this.temp.id) {
-          const index = this.list.indexOf(v)
-          this.list.splice(index, 1, this.temp)
-          break
-        }
-      }*/
       this.dialogFormVisible = false
       this.$notify({
         title: '成功',

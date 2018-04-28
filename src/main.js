@@ -10,13 +10,10 @@ import './icons' // icon
 import './errorLog'// error log
 import './permission' // 权限
 import './mock'  // 该项目所有请求使用mockjs模拟
-import vueResource from 'vue-resource'
 // import iView from 'iview'
 // import 'iview/dist/styles/iview.css'
-
 // Vue.use(iView)
 Vue.use(ElementUI)
-Vue.use(vueResource)
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
