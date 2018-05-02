@@ -99,7 +99,7 @@
 
 <script>
 import { fetchPv } from '@/api/article'
-import { ywdwPage, ywdwUpdate, ywdwAdd } from '@/api/ywdw'
+import { ywdwPage, ywdwUpdate, ywdwAdd, ywdwDel } from '@/api/ywdw'
 import waves from '@/directive/waves/index.js' // 水波纹指令
 import { parseTime } from '@/utils'
 
@@ -221,6 +221,11 @@ export default {
       this.dialogFormVisible = true
     },
     handleDelete(row) {
+     // const data = { id: row.tSysId }
+      ywdwDel(row.tSysId).then(response => {
+        console.log(response)
+        this.listLoading = false
+      })
       this.$notify({
         title: '成功',
         message: '删除成功',

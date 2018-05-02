@@ -29,3 +29,10 @@ export function ywdwAdd(datas) {
     data: datas
   })
 }
+export function ywdwDel(data) {
+  return fetchObject({
+    url: '/ywdw/del',
+    method: 'delete',
+    data: data
+  })
+}
